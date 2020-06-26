@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Html.Events.Extra.Pointer as Pointer
 import Playground exposing (..)
 
 
