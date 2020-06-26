@@ -1,4 +1,4 @@
-module Main exposing (gezicht, giraf, kop, kopnek, main, view, vlek, vlekken)
+module Main exposing (main)
 
 import Playground exposing (..)
 
@@ -8,16 +8,16 @@ main =
 
 
 view time =
-    [ giraf (wave 10 70 3 time)
+    [ giraffe (wave 10 70 3 time)
         |> moveRight (wave 0 100 10 time)
         |> moveUp (wave -50 150 4 time)
     ]
 
 
-giraf kopknik =
+giraffe nod =
     group
-        [ kop kopknik
-        , vlekken
+        [ head nod
+        , spots
             [ ( 2, 0 )
             , ( 18, 28 )
             , ( 2, 50 )
@@ -28,43 +28,43 @@ giraf kopknik =
         ]
 
 
-kop kopknik =
+head nod =
     group
-        [ kopnek yellow 40 10
-        , gezicht
-            |> rotate kopknik
+        [ headNeck yellow 40 10
+        , face
+            |> rotate nod
         ]
 
 
-gezicht =
+face =
     group
         [ circle black 15
             |> move 10 10
         , circle white 10
             |> move 25 -25
-        , kopnek orange 10 3
+        , headNeck orange 10 3
             |> moveUp 60
             |> moveLeft 10
         ]
 
 
-kopnek kleur grootte neklengte =
+headNeck color size neckLength =
     group
-        [ circle kleur grootte
-        , rectangle kleur grootte (grootte * neklengte)
-            |> moveDown (grootte * (neklengte / 2))
-            |> moveLeft (grootte / 2)
+        [ circle color size
+        , rectangle color size (size * neckLength)
+            |> moveDown (size * (neckLength / 2))
+            |> moveLeft (size / 2)
         ]
 
 
-vlek =
+spot =
     circle brown 12
 
 
-vlekken range =
+spots range =
     group <|
         List.map
             (\( x, y ) ->
-                move x y vlek
+                move x y spot
             )
             range

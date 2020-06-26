@@ -6239,19 +6239,19 @@ var $evancz$elm_playground$Playground$rectangle = F3(
 			1,
 			A3($evancz$elm_playground$Playground$Rectangle, color, width, height));
 	});
-var $author$project$Main$kopnek = F3(
-	function (kleur, grootte, neklengte) {
+var $author$project$Main$headNeck = F3(
+	function (color, size, neckLength) {
 		return $evancz$elm_playground$Playground$group(
 			_List_fromArray(
 				[
-					A2($evancz$elm_playground$Playground$circle, kleur, grootte),
+					A2($evancz$elm_playground$Playground$circle, color, size),
 					A2(
 					$evancz$elm_playground$Playground$moveLeft,
-					grootte / 2,
+					size / 2,
 					A2(
 						$evancz$elm_playground$Playground$moveDown,
-						grootte * (neklengte / 2),
-						A3($evancz$elm_playground$Playground$rectangle, kleur, grootte, grootte * neklengte)))
+						size * (neckLength / 2),
+						A3($evancz$elm_playground$Playground$rectangle, color, size, size * neckLength)))
 				]));
 	});
 var $evancz$elm_playground$Playground$move = F3(
@@ -6277,7 +6277,7 @@ var $evancz$elm_playground$Playground$moveY = F2(
 var $evancz$elm_playground$Playground$moveUp = $evancz$elm_playground$Playground$moveY;
 var $evancz$elm_playground$Playground$orange = $evancz$elm_playground$Playground$Hex('#f57900');
 var $evancz$elm_playground$Playground$white = $evancz$elm_playground$Playground$Hex('#FFFFFF');
-var $author$project$Main$gezicht = $evancz$elm_playground$Playground$group(
+var $author$project$Main$face = $evancz$elm_playground$Playground$group(
 	_List_fromArray(
 		[
 			A3(
@@ -6296,7 +6296,7 @@ var $author$project$Main$gezicht = $evancz$elm_playground$Playground$group(
 			A2(
 				$evancz$elm_playground$Playground$moveUp,
 				60,
-				A3($author$project$Main$kopnek, $evancz$elm_playground$Playground$orange, 10, 3)))
+				A3($author$project$Main$headNeck, $evancz$elm_playground$Playground$orange, 10, 3)))
 		]));
 var $evancz$elm_playground$Playground$rotate = F2(
 	function (da, _v0) {
@@ -6309,37 +6309,37 @@ var $evancz$elm_playground$Playground$rotate = F2(
 		return A6($evancz$elm_playground$Playground$Shape, x, y, a + da, s, o, f);
 	});
 var $evancz$elm_playground$Playground$yellow = $evancz$elm_playground$Playground$Hex('#edd400');
-var $author$project$Main$kop = function (kopknik) {
+var $author$project$Main$head = function (nod) {
 	return $evancz$elm_playground$Playground$group(
 		_List_fromArray(
 			[
-				A3($author$project$Main$kopnek, $evancz$elm_playground$Playground$yellow, 40, 10),
-				A2($evancz$elm_playground$Playground$rotate, kopknik, $author$project$Main$gezicht)
+				A3($author$project$Main$headNeck, $evancz$elm_playground$Playground$yellow, 40, 10),
+				A2($evancz$elm_playground$Playground$rotate, nod, $author$project$Main$face)
 			]));
 };
 var $evancz$elm_playground$Playground$brown = $evancz$elm_playground$Playground$Hex('#c17d11');
-var $author$project$Main$vlek = A2($evancz$elm_playground$Playground$circle, $evancz$elm_playground$Playground$brown, 12);
-var $author$project$Main$vlekken = function (range) {
+var $author$project$Main$spot = A2($evancz$elm_playground$Playground$circle, $evancz$elm_playground$Playground$brown, 12);
+var $author$project$Main$spots = function (range) {
 	return $evancz$elm_playground$Playground$group(
 		A2(
 			$elm$core$List$map,
 			function (_v0) {
 				var x = _v0.a;
 				var y = _v0.b;
-				return A3($evancz$elm_playground$Playground$move, x, y, $author$project$Main$vlek);
+				return A3($evancz$elm_playground$Playground$move, x, y, $author$project$Main$spot);
 			},
 			range));
 };
-var $author$project$Main$giraf = function (kopknik) {
+var $author$project$Main$giraffe = function (nod) {
 	return $evancz$elm_playground$Playground$group(
 		_List_fromArray(
 			[
-				$author$project$Main$kop(kopknik),
+				$author$project$Main$head(nod),
 				A3(
 				$evancz$elm_playground$Playground$move,
 				-30,
 				-150,
-				$author$project$Main$vlekken(
+				$author$project$Main$spots(
 					_List_fromArray(
 						[
 							_Utils_Tuple2(2, 0),
@@ -6392,7 +6392,7 @@ var $author$project$Main$view = function (time) {
 			A2(
 				$evancz$elm_playground$Playground$moveRight,
 				A4($evancz$elm_playground$Playground$wave, 0, 100, 10, time),
-				$author$project$Main$giraf(
+				$author$project$Main$giraffe(
 					A4($evancz$elm_playground$Playground$wave, 10, 70, 3, time))))
 		]);
 };
