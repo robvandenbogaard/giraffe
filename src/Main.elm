@@ -17,19 +17,33 @@ main =
                 , ( 15, 78 )
                 , ( 18, 90 )
                 ]
+            , x = 0
+            , y = 0
+            , aim = 0
             }
     in
     game view update memory
 
 
 update computer memory =
-    memory
+    let
+        -- aim 0 means zero degrees rotation of the face; in this case the eye
+        -- and mouth are aiming 45 degrees downwards relative to the horizon
+        -- we would like the giraffe to aim in the direction of the mouse cursor
+        -- tan aim = (c.y - y) / (c.x - x)
+        -- atan (tan aim) = aim in radians minus the 45 degree offset
+        -- atan2 is to help sort out the various negative value cases
+        newAim =
+            45
+                + (180 * pi)
+                * atan2 (computer.mouse.y - memory.y) (computer.mouse.x - memory.x)
+    in
+    { memory | aim = newAim }
 
 
 view computer memory =
-    [ giraffe memory.spots (wave 10 70 3 computer.time)
-        |> moveRight (wave 0 100 10 computer.time)
-        |> moveUp (wave -50 150 4 computer.time)
+    [ giraffe memory.spots memory.aim
+        |> move memory.x memory.y
     , balls memory.balls
     ]
 
