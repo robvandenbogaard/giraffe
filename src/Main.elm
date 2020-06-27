@@ -4,26 +4,37 @@ import Playground exposing (..)
 
 
 main =
-    animation view
+    let
+        memory =
+            { balls = []
+            , eaten = 0
+            , spots =
+                [ ( 2, 0 )
+                , ( 18, 28 )
+                , ( 2, 50 )
+                , ( 15, 78 )
+                , ( 18, 90 )
+                ]
+            }
+    in
+    game view update memory
 
 
-view time =
-    [ giraffe (wave 10 70 3 time)
-        |> moveRight (wave 0 100 10 time)
-        |> moveUp (wave -50 150 4 time)
+update computer memory =
+    memory
+
+
+view computer memory =
+    [ giraffe memory.spots (wave 10 70 3 computer.time)
+        |> moveRight (wave 0 100 10 computer.time)
+        |> moveUp (wave -50 150 4 computer.time)
     ]
 
 
-giraffe nod =
+giraffe listOfSpots nod =
     group
         [ head nod
-        , spots
-            [ ( 2, 0 )
-            , ( 18, 28 )
-            , ( 2, 50 )
-            , ( 15, 78 )
-            , ( 18, 90 )
-            ]
+        , spots listOfSpots
             |> move -30 -150
         ]
 
