@@ -6,7 +6,9 @@ import Playground exposing (..)
 main =
     let
         memory =
-            { balls = []
+            { balls =
+                [ { color = green, size = 12, x = 100, y = 50 }
+                ]
             , eaten = 0
             , spots =
                 [ ( 2, 0 )
@@ -28,6 +30,7 @@ view computer memory =
     [ giraffe memory.spots (wave 10 70 3 computer.time)
         |> moveRight (wave 0 100 10 computer.time)
         |> moveUp (wave -50 150 4 computer.time)
+    , balls memory.balls
     ]
 
 
@@ -79,3 +82,11 @@ spots range =
                 move x y spot
             )
             range
+
+
+balls =
+    group << List.map ball
+
+
+ball { color, size, x, y } =
+    move x y (circle color size)
