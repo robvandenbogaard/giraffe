@@ -6754,9 +6754,9 @@ var $author$project$Main$maybeEatBall = F5(
 			var distanceToBall = $elm$core$Basics$sqrt(
 				A2($elm$core$Basics$pow, b.d - x, 2) + A2($elm$core$Basics$pow, b.f - y, 2));
 			var aimToBall = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, b.f - y, b.d - x));
-			return ((distanceToBall > 50) || (distanceToBall < 20)) ? _Utils_Tuple2(
+			return ((distanceToBall > 50) || (distanceToBall < 5)) ? _Utils_Tuple2(
 				eaten,
-				A2($elm$core$List$cons, b, ballsSoFar)) : (($elm$core$Basics$abs(aimToBall - aim) > 10) ? _Utils_Tuple2(
+				A2($elm$core$List$cons, b, ballsSoFar)) : (($elm$core$Basics$abs(aimToBall - aim) > 20) ? _Utils_Tuple2(
 				eaten,
 				A2($elm$core$List$cons, b, ballsSoFar)) : _Utils_Tuple2(
 				eaten + 1,

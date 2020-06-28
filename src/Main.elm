@@ -173,13 +173,13 @@ maybeEatBall x y aim b ( eaten, ballsSoFar ) =
             aimToBall =
                 45 + (180 / pi) * atan2 (b.y - y) (b.x - x)
         in
-        if distanceToBall > 50 || distanceToBall < 20 then
+        if distanceToBall > 50 || distanceToBall < 5 then
             -- this ball is too far away or to close by to get eaten; just
             -- return the number of eaten balls so far and add the ball
             -- unchanged to the list of balls already checked
             ( eaten, b :: ballsSoFar )
 
-        else if abs (aimToBall - aim) > 10 then
+        else if abs (aimToBall - aim) > 20 then
             -- the ball is near but the giraffe is not aiming its mouth in its
             -- direction, so it won't get eaten
             ( eaten, b :: ballsSoFar )
