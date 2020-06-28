@@ -41,8 +41,14 @@ update computer memory =
 
         movedBalls =
             List.map (moveBall computer.time) memory.balls
+
+        ( eaten, afterEatBalls ) =
+            List.foldl
+                (maybeEatBall memory.x memory.y memory.aim)
+                ( memory.eaten, [] )
+                movedBalls
     in
-    { memory | aim = newAim, balls = movedBalls }
+    { memory | aim = newAim, balls = afterEatBalls }
 
 
 moveBall time b =
@@ -60,6 +66,41 @@ moveBall time b =
                 1000
         , y = b.y + wave -0.2 0.2 20 time
     }
+
+
+maybeEatBall x y aim b ( eaten, ballsSoFar ) =
+    -- if the ball is behind the giraffe it can't be eaten; in that case we just
+    -- return the current "eaten" score and add the ball unchanged to the list
+    -- of balls we checked so far
+    -- we compare with x + 5, just to the right of the position of the giraffe
+    -- because its mouth is on the right side of its head, and to avoid division
+    -- by zero in further calculations
+    if b.x < x + 5 then
+        ( eaten, b :: ballsSoFar )
+
+    else
+        let
+            distanceToBall =
+                sqrt ((b.x - x) ^ 2 + (b.y - y) ^ 2)
+
+            aimToBall =
+                45 + (180 / pi) * atan2 (b.y - y) (b.x - x)
+        in
+        if distanceToBall > 50 || distanceToBall < 20 then
+            -- this ball is too far away or to close by to get eaten; just
+            -- return the score so far and add the ball unchanged to the
+            -- list of balls already checked
+            ( eaten, b :: ballsSoFar )
+
+        else if abs (aimToBall - aim) > 10 then
+            -- the ball is near but the giraffe is not aiming its mouth in its
+            -- direction, so it won't get eaten
+            ( eaten, b :: ballsSoFar )
+
+        else
+            -- yesss! we can eat the ball; increment the "eaten" score and move
+            -- the ball out of sight to the right so it'll reappear as a new one
+            ( eaten + 1, { b | x = 1000 } :: ballsSoFar )
 
 
 view computer memory =
