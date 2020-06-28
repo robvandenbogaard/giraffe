@@ -8,15 +8,10 @@ main =
         memory =
             { balls =
                 [ { color = green, size = 12, x = 100, y = 50 }
+                , { color = blue, size = 10, x = 900, y = -50 }
                 ]
-            , eaten = 0
             , spots =
-                [ ( 2, 0 )
-                , ( 18, 28 )
-                , ( 2, 50 )
-                , ( 15, 78 )
-                , ( 18, 90 )
-                ]
+                []
             , x = 0
             , y = 0
             , aim = 0
@@ -49,10 +44,10 @@ update computer memory =
         movedBalls =
             List.map (moveBall computer.time) memory.balls
 
-        ( eaten, afterEatingBalls ) =
+        ( afterEatingSpots, afterEatingBalls ) =
             List.foldl
-                (maybeEatBall memory.x memory.y memory.aim)
-                ( memory.eaten, [] )
+                (maybeEatBall computer.time memory.x memory.y memory.aim)
+                ( memory.spots, [] )
                 movedBalls
     in
     { memory
@@ -61,6 +56,7 @@ update computer memory =
         , y = newY
         , velocity = newVelocity
         , balls = afterEatingBalls
+        , spots = afterEatingSpots
     }
 
 
@@ -101,15 +97,15 @@ moveBall time b =
     }
 
 
-maybeEatBall x y aim b ( eaten, ballsSoFar ) =
+maybeEatBall time x y aim b ( spotsSoFar, ballsSoFar ) =
     -- if the ball is behind the giraffe it can't be eaten; in that case we just
-    -- return the current "eaten" score and add the ball unchanged to the list
+    -- return the list of spots so far and add the ball unchanged to the list
     -- of balls we checked so far
     -- we compare with x + 5, just to the right of the position of the giraffe
     -- because its mouth is on the right side of its head, and to avoid division
     -- by zero in further calculations
     if b.x < x + 5 then
-        ( eaten, b :: ballsSoFar )
+        ( spotsSoFar, b :: ballsSoFar )
 
     else
         let
@@ -121,19 +117,29 @@ maybeEatBall x y aim b ( eaten, ballsSoFar ) =
         in
         if distanceToBall > 50 || distanceToBall < 20 then
             -- this ball is too far away or to close by to get eaten; just
-            -- return the score so far and add the ball unchanged to the
+            -- return the spots so far and add the ball unchanged to the
             -- list of balls already checked
-            ( eaten, b :: ballsSoFar )
+            ( spotsSoFar, b :: ballsSoFar )
 
         else if abs (aimToBall - aim) > 10 then
             -- the ball is near but the giraffe is not aiming its mouth in its
             -- direction, so it won't get eaten
-            ( eaten, b :: ballsSoFar )
+            ( spotsSoFar, b :: ballsSoFar )
 
         else
-            -- yesss! we can eat the ball; increment the "eaten" score and move
+            -- yesss! we can eat the ball; add a spot for the giraffe and move
             -- the ball out of sight to the right so it'll reappear as a new one
-            ( eaten + 1, { b | x = 1000 } :: ballsSoFar )
+            let
+                random1 =
+                    cos (spin 1 time)
+
+                random2 =
+                    sin (spin 1 time)
+
+                newSpots =
+                    ( random1, random2 ) :: List.reverse spotsSoFar
+            in
+            ( List.reverse newSpots, { b | x = 1000 } :: ballsSoFar )
 
 
 view computer memory =
@@ -158,7 +164,7 @@ giraffe sunlight listOfSpots nod =
         , legs yellow 40 4
             |> move 0 (-40 * 8)
         , spots listOfSpots
-            |> move -30 -150
+            |> move -20 -60
         ]
 
 
@@ -207,17 +213,13 @@ legs color size legLength =
         ]
 
 
-spot =
+spot i ( x, y ) =
     circle brown 12
+        |> move (x * 8) -(toFloat i * 25 + y * 5)
 
 
-spots range =
-    group <|
-        List.map
-            (\( x, y ) ->
-                move x y spot
-            )
-            range
+spots =
+    group << List.indexedMap spot
 
 
 balls =

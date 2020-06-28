@@ -533,11 +533,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region._.G === region.aj.G)
+	if (region.ab.G === region.aj.G)
 	{
-		return 'on line ' + region._.G;
+		return 'on line ' + region.ab.G;
 	}
-	return 'on lines ' + region._.G + ' through ' + region.aj.G;
+	return 'on lines ' + region.ab.G + ' through ' + region.aj.G;
 }
 
 
@@ -2719,8 +2719,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		s: func(record.s),
-		aa: record.aa,
-		W: record.W
+		ac: record.ac,
+		Y: record.Y
 	}
 });
 
@@ -2989,10 +2989,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.s;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aa;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ac;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.W) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.Y) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3982,7 +3982,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 		impl.aF,
 		impl.aX,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.X && impl.X(sendToApp)
+			var divertHrefToApp = impl.Z && impl.Z(sendToApp)
 			var view = impl.aG;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -3996,7 +3996,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aZ) && (_VirtualDom_doc.title = title = doc.aZ);
+				(title !== doc.aY) && (_VirtualDom_doc.title = title = doc.aY);
 			});
 		}
 	);
@@ -4057,7 +4057,7 @@ function _Browser_application(impl)
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		X: function(sendToApp)
+		Z: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4248,8 +4248,8 @@ function _Browser_getViewport()
 	return {
 		aB: _Browser_getScene(),
 		aH: {
-			e: _Browser_window.pageXOffset,
-			g: _Browser_window.pageYOffset,
+			d: _Browser_window.pageXOffset,
+			f: _Browser_window.pageYOffset,
 			aI: _Browser_doc.documentElement.clientWidth,
 			am: _Browser_doc.documentElement.clientHeight
 		}
@@ -4290,8 +4290,8 @@ function _Browser_getViewportOf(id)
 				am: node.scrollHeight
 			},
 			aH: {
-				e: node.scrollLeft,
-				g: node.scrollTop,
+				d: node.scrollLeft,
+				f: node.scrollTop,
 				aI: node.clientWidth,
 				am: node.clientHeight
 			}
@@ -4325,14 +4325,14 @@ function _Browser_getElement(id)
 		return {
 			aB: _Browser_getScene(),
 			aH: {
-				e: x,
-				g: y,
+				d: x,
+				f: y,
 				aI: _Browser_doc.documentElement.clientWidth,
 				am: _Browser_doc.documentElement.clientHeight
 			},
 			aO: {
-				e: x + rect.left,
-				g: y + rect.top,
+				d: x + rect.left,
+				f: y + rect.top,
 				aI: rect.width,
 				am: rect.height
 			}
@@ -4449,6 +4449,10 @@ var $elm$core$Set$toList = function (_v0) {
 var $elm$core$Basics$EQ = 1;
 var $elm$core$Basics$GT = 2;
 var $elm$core$Basics$LT = 0;
+var $evancz$elm_playground$Playground$Hex = function (a) {
+	return {$: 0, a: a};
+};
+var $evancz$elm_playground$Playground$blue = $evancz$elm_playground$Playground$Hex('#3465a4');
 var $evancz$elm_playground$Playground$Game = F3(
 	function (a, b, c) {
 		return {$: 0, a: a, b: b, c: c};
@@ -4797,7 +4801,7 @@ var $elm$core$Array$builderToArray = F2(
 			var treeLen = builder.a * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.d) : builder.d;
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.e) : builder.e;
 			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.a);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
@@ -4817,7 +4821,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{d: nodeList, a: (len / $elm$core$Array$branchFactor) | 0, c: tail});
+					{e: nodeList, a: (len / $elm$core$Array$branchFactor) | 0, c: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5190,7 +5194,7 @@ var $elm$browser$Browser$AnimationManager$Time = function (a) {
 };
 var $elm$browser$Browser$AnimationManager$State = F3(
 	function (subs, request, oldTime) {
-		return {V: oldTime, aA: request, aD: subs};
+		return {X: oldTime, aA: request, aC: subs};
 	});
 var $elm$browser$Browser$AnimationManager$init = $elm$core$Task$succeed(
 	A3($elm$browser$Browser$AnimationManager$State, _List_Nil, $elm$core$Maybe$Nothing, 0));
@@ -5202,7 +5206,7 @@ var $elm$core$Process$spawn = _Scheduler_spawn;
 var $elm$browser$Browser$AnimationManager$onEffects = F3(
 	function (router, subs, _v0) {
 		var request = _v0.aA;
-		var oldTime = _v0.V;
+		var oldTime = _v0.X;
 		var _v1 = _Utils_Tuple2(request, subs);
 		if (_v1.a.$ === 1) {
 			if (!_v1.b.b) {
@@ -5250,8 +5254,8 @@ var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$browser$Browser$AnimationManager$onSelfMsg = F3(
 	function (router, newTime, _v0) {
-		var subs = _v0.aD;
-		var oldTime = _v0.V;
+		var subs = _v0.aC;
+		var oldTime = _v0.X;
 		var send = function (sub) {
 			if (!sub.$) {
 				var tagger = sub.a;
@@ -5324,7 +5328,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {at: pids, aD: subs};
+		return {at: pids, aC: subs};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5685,7 +5689,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.aD);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.aC);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -5792,17 +5796,17 @@ var $evancz$elm_playground$Playground$gameSubscriptions = $elm$core$Platform$Sub
 		]));
 var $evancz$elm_playground$Playground$Mouse = F4(
 	function (x, y, down, click) {
-		return {S: click, aN: down, e: x, g: y};
+		return {T: click, aN: down, d: x, f: y};
 	});
 var $evancz$elm_playground$Playground$Time = $elm$core$Basics$identity;
 var $elm$core$Set$Set_elm_builtin = $elm$core$Basics$identity;
 var $elm$core$Set$empty = $elm$core$Dict$empty;
-var $evancz$elm_playground$Playground$emptyKeyboard = {Q: false, aN: false, T: false, h: $elm$core$Set$empty, r: false, B: false, Y: false, Z: false, P: false};
+var $evancz$elm_playground$Playground$emptyKeyboard = {R: false, aN: false, V: false, h: $elm$core$Set$empty, r: false, B: false, _: false, aa: false, Q: false};
 var $evancz$elm_playground$Playground$mouseClick = F2(
 	function (bool, mouse) {
 		return _Utils_update(
 			mouse,
-			{S: bool});
+			{T: bool});
 	});
 var $evancz$elm_playground$Playground$mouseDown = F2(
 	function (bool, mouse) {
@@ -5814,14 +5818,14 @@ var $evancz$elm_playground$Playground$mouseMove = F3(
 	function (x, y, mouse) {
 		return _Utils_update(
 			mouse,
-			{e: x, g: y});
+			{d: x, f: y});
 	});
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
 var $evancz$elm_playground$Playground$toScreen = F2(
 	function (width, height) {
-		return {R: (-height) / 2, am: height, r: (-width) / 2, B: width / 2, ac: height / 2, aI: width};
+		return {S: (-height) / 2, am: height, r: (-width) / 2, B: width / 2, ae: height / 2, aI: width};
 	});
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
@@ -6202,23 +6206,23 @@ var $evancz$elm_playground$Playground$updateKeyboard = F3(
 			case ' ':
 				return _Utils_update(
 					keyboard,
-					{h: keys, Z: isDown});
+					{h: keys, aa: isDown});
 			case 'Enter':
 				return _Utils_update(
 					keyboard,
-					{T: isDown, h: keys});
+					{V: isDown, h: keys});
 			case 'Shift':
 				return _Utils_update(
 					keyboard,
-					{h: keys, Y: isDown});
+					{h: keys, _: isDown});
 			case 'Backspace':
 				return _Utils_update(
 					keyboard,
-					{Q: isDown, h: keys});
+					{R: isDown, h: keys});
 			case 'ArrowUp':
 				return _Utils_update(
 					keyboard,
-					{h: keys, P: isDown});
+					{h: keys, Q: isDown});
 			case 'ArrowDown':
 				return _Utils_update(
 					keyboard,
@@ -6249,14 +6253,14 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					$evancz$elm_playground$Playground$Game,
 					vis,
 					A2(updateMemory, computer, memory),
-					computer.N.S ? _Utils_update(
+					computer.O.T ? _Utils_update(
 						computer,
 						{
-							N: A2($evancz$elm_playground$Playground$mouseClick, false, computer.N),
-							aY: time
+							O: A2($evancz$elm_playground$Playground$mouseClick, false, computer.O),
+							aE: time
 						}) : _Utils_update(
 						computer,
-						{aY: time}));
+						{aE: time}));
 			case 2:
 				var viewport = msg.a.aH;
 				return A3(
@@ -6295,7 +6299,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 			case 5:
 				var pageX = msg.a;
 				var pageY = msg.b;
-				var y = computer.y.ac - pageY;
+				var y = computer.y.ae - pageY;
 				var x = computer.y.r + pageX;
 				return A3(
 					$evancz$elm_playground$Playground$Game,
@@ -6304,7 +6308,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							N: A3($evancz$elm_playground$Playground$mouseMove, x, y, computer.N)
+							O: A3($evancz$elm_playground$Playground$mouseMove, x, y, computer.O)
 						}));
 			case 6:
 				return A3(
@@ -6314,7 +6318,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							N: A2($evancz$elm_playground$Playground$mouseClick, true, computer.N)
+							O: A2($evancz$elm_playground$Playground$mouseClick, true, computer.O)
 						}));
 			case 7:
 				var isDown = msg.a;
@@ -6325,7 +6329,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							N: A2($evancz$elm_playground$Playground$mouseDown, isDown, computer.N)
+							O: A2($evancz$elm_playground$Playground$mouseDown, isDown, computer.O)
 						}));
 			default:
 				var visibility = msg.a;
@@ -6337,16 +6341,16 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 						computer,
 						{
 							F: $evancz$elm_playground$Playground$emptyKeyboard,
-							N: A4($evancz$elm_playground$Playground$Mouse, computer.N.e, computer.N.g, false, false)
+							O: A4($evancz$elm_playground$Playground$Mouse, computer.O.d, computer.O.f, false, false)
 						}));
 		}
 	});
 var $elm$browser$Browser$Dom$getViewport = _Browser_withWindow(_Browser_getViewport);
 var $evancz$elm_playground$Playground$initialComputer = {
 	F: $evancz$elm_playground$Playground$emptyKeyboard,
-	N: A4($evancz$elm_playground$Playground$Mouse, 0, 0, false, false),
+	O: A4($evancz$elm_playground$Playground$Mouse, 0, 0, false, false),
 	y: A2($evancz$elm_playground$Playground$toScreen, 600, 600),
-	aY: $elm$time$Time$millisToPosix(0)
+	aE: $elm$time$Time$millisToPosix(0)
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -6651,7 +6655,7 @@ var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $evancz$elm_playground$Playground$render = F2(
 	function (screen, shapes) {
-		var y = $elm$core$String$fromFloat(screen.R);
+		var y = $elm$core$String$fromFloat(screen.S);
 		var x = $elm$core$String$fromFloat(screen.r);
 		var w = $elm$core$String$fromFloat(screen.aI);
 		var h = $elm$core$String$fromFloat(screen.am);
@@ -6681,7 +6685,7 @@ var $evancz$elm_playground$Playground$game = F3(
 						computer.y,
 						A2(viewMemory, computer, memory))
 					]),
-				aZ: 'Playground'
+				aY: 'Playground'
 			};
 		};
 		var update = F2(
@@ -6706,9 +6710,6 @@ var $evancz$elm_playground$Playground$game = F3(
 		return $elm$browser$Browser$document(
 			{ao: init, aX: subscriptions, aF: update, aG: view});
 	});
-var $evancz$elm_playground$Playground$Hex = function (a) {
-	return {$: 0, a: a};
-};
 var $evancz$elm_playground$Playground$green = $evancz$elm_playground$Playground$Hex('#73d216');
 var $evancz$elm_playground$Playground$Rgb = F3(
 	function (a, b, c) {
@@ -6735,33 +6736,6 @@ var $elm$core$Basics$abs = function (n) {
 };
 var $elm$core$Basics$atan2 = _Basics_atan2;
 var $elm$core$Basics$pow = _Basics_pow;
-var $elm$core$Basics$sqrt = _Basics_sqrt;
-var $author$project$Main$maybeEatBall = F5(
-	function (x, y, aim, b, _v0) {
-		var eaten = _v0.a;
-		var ballsSoFar = _v0.b;
-		if (_Utils_cmp(b.e, x + 5) < 0) {
-			return _Utils_Tuple2(
-				eaten,
-				A2($elm$core$List$cons, b, ballsSoFar));
-		} else {
-			var distanceToBall = $elm$core$Basics$sqrt(
-				A2($elm$core$Basics$pow, b.e - x, 2) + A2($elm$core$Basics$pow, b.g - y, 2));
-			var aimToBall = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, b.g - y, b.e - x));
-			return ((distanceToBall > 50) || (distanceToBall < 20)) ? _Utils_Tuple2(
-				eaten,
-				A2($elm$core$List$cons, b, ballsSoFar)) : (($elm$core$Basics$abs(aimToBall - aim) > 10) ? _Utils_Tuple2(
-				eaten,
-				A2($elm$core$List$cons, b, ballsSoFar)) : _Utils_Tuple2(
-				eaten + 1,
-				A2(
-					$elm$core$List$cons,
-					_Utils_update(
-						b,
-						{e: 1000}),
-					ballsSoFar)));
-		}
-	});
 var $elm$core$Basics$modBy = _Basics_modBy;
 var $elm$time$Time$posixToMillis = function (_v0) {
 	var millis = _v0;
@@ -6777,6 +6751,53 @@ var $evancz$elm_playground$Playground$toFrac = F2(
 			$elm$core$Basics$round(p),
 			ms) / p;
 	});
+var $evancz$elm_playground$Playground$spin = F2(
+	function (period, time) {
+		return 360 * A2($evancz$elm_playground$Playground$toFrac, period, time);
+	});
+var $elm$core$Basics$sqrt = _Basics_sqrt;
+var $author$project$Main$maybeEatBall = F6(
+	function (time, x, y, aim, b, _v0) {
+		var spotsSoFar = _v0.a;
+		var ballsSoFar = _v0.b;
+		if (_Utils_cmp(b.d, x + 5) < 0) {
+			return _Utils_Tuple2(
+				spotsSoFar,
+				A2($elm$core$List$cons, b, ballsSoFar));
+		} else {
+			var distanceToBall = $elm$core$Basics$sqrt(
+				A2($elm$core$Basics$pow, b.d - x, 2) + A2($elm$core$Basics$pow, b.f - y, 2));
+			var aimToBall = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, b.f - y, b.d - x));
+			if ((distanceToBall > 50) || (distanceToBall < 20)) {
+				return _Utils_Tuple2(
+					spotsSoFar,
+					A2($elm$core$List$cons, b, ballsSoFar));
+			} else {
+				if ($elm$core$Basics$abs(aimToBall - aim) > 10) {
+					return _Utils_Tuple2(
+						spotsSoFar,
+						A2($elm$core$List$cons, b, ballsSoFar));
+				} else {
+					var random2 = $elm$core$Basics$sin(
+						A2($evancz$elm_playground$Playground$spin, 1, time));
+					var random1 = $elm$core$Basics$cos(
+						A2($evancz$elm_playground$Playground$spin, 1, time));
+					var newSpots = A2(
+						$elm$core$List$cons,
+						_Utils_Tuple2(random1, random2),
+						$elm$core$List$reverse(spotsSoFar));
+					return _Utils_Tuple2(
+						$elm$core$List$reverse(newSpots),
+						A2(
+							$elm$core$List$cons,
+							_Utils_update(
+								b,
+								{d: 1000}),
+							ballsSoFar));
+				}
+			}
+		}
+	});
 var $evancz$elm_playground$Playground$wave = F4(
 	function (lo, hi, period, time) {
 		return lo + (((hi - lo) * (1 + $elm$core$Basics$cos(
@@ -6785,13 +6806,13 @@ var $evancz$elm_playground$Playground$wave = F4(
 	});
 var $author$project$Main$moveBall = F2(
 	function (time, b) {
-		var x_ = b.e - 2;
+		var x_ = b.d - 2;
 		return _Utils_update(
 			b,
 			{
-				O: b.O + A4($evancz$elm_playground$Playground$wave, -0.1, 0.1, 1, time),
-				e: (_Utils_cmp(x_, -1000) > 0) ? x_ : 1000,
-				g: b.g + A4($evancz$elm_playground$Playground$wave, -0.2, 0.2, 20, time)
+				H: b.H + A4($evancz$elm_playground$Playground$wave, -0.1, 0.1, 1, time),
+				d: (_Utils_cmp(x_, -1000) > 0) ? x_ : 1000,
+				f: b.f + A4($evancz$elm_playground$Playground$wave, -0.2, 0.2, 20, time)
 			});
 	});
 var $author$project$Main$moveGiraffe = F4(
@@ -6813,20 +6834,20 @@ var $author$project$Main$moveGiraffe = F4(
 	});
 var $author$project$Main$update = F2(
 	function (computer, memory) {
-		var pull = _Utils_Tuple2((computer.N.e - memory.e) - 50, computer.N.g - memory.g);
+		var pull = _Utils_Tuple2((computer.O.d - memory.d) - 50, computer.O.f - memory.f);
 		var newAim = 45 + ((180 / $elm$core$Basics$pi) * A2(
 			$elm$core$Basics$atan2,
-			computer.N.g - memory.g,
-			$elm$core$Basics$abs(computer.N.e - memory.e)));
+			computer.O.f - memory.f,
+			$elm$core$Basics$abs(computer.O.d - memory.d)));
 		var movedBalls = A2(
 			$elm$core$List$map,
-			$author$project$Main$moveBall(computer.aY),
-			memory.M);
+			$author$project$Main$moveBall(computer.aE),
+			memory.N);
 		var _v0 = A4(
 			$author$project$Main$moveGiraffe,
-			_Utils_Tuple2(memory.e, memory.g),
+			_Utils_Tuple2(memory.d, memory.f),
 			newAim,
-			memory.ad,
+			memory.af,
 			pull);
 		var _v1 = _v0.a;
 		var newX = _v1.a;
@@ -6834,14 +6855,14 @@ var $author$project$Main$update = F2(
 		var newVelocity = _v0.b;
 		var _v2 = A3(
 			$elm$core$List$foldl,
-			A3($author$project$Main$maybeEatBall, memory.e, memory.g, memory.L),
-			_Utils_Tuple2(memory.ai, _List_Nil),
+			A4($author$project$Main$maybeEatBall, computer.aE, memory.d, memory.f, memory.M),
+			_Utils_Tuple2(memory.P, _List_Nil),
 			movedBalls);
-		var eaten = _v2.a;
+		var afterEatingSpots = _v2.a;
 		var afterEatingBalls = _v2.b;
 		return _Utils_update(
 			memory,
-			{L: newAim, M: afterEatingBalls, ad: newVelocity, e: newX, g: newY});
+			{M: newAim, N: afterEatingBalls, P: afterEatingSpots, af: newVelocity, d: newX, f: newY});
 	});
 var $evancz$elm_playground$Playground$Group = function (a) {
 	return {$: 7, a: a};
@@ -6923,10 +6944,10 @@ var $evancz$elm_playground$Playground$move = F3(
 		return A6($evancz$elm_playground$Playground$Shape, x + dx, y + dy, a, s, o, f);
 	});
 var $author$project$Main$ball = function (_v0) {
-	var color = _v0.ag;
-	var size = _v0.O;
-	var x = _v0.e;
-	var y = _v0.g;
+	var color = _v0.U;
+	var size = _v0.H;
+	var x = _v0.d;
+	var y = _v0.f;
 	return A3(
 		$evancz$elm_playground$Playground$move,
 		x,
@@ -7045,18 +7066,20 @@ var $author$project$Main$legs = F3(
 				]));
 	});
 var $evancz$elm_playground$Playground$brown = $evancz$elm_playground$Playground$Hex('#c17d11');
-var $author$project$Main$spot = A2($evancz$elm_playground$Playground$circle, $evancz$elm_playground$Playground$brown, 12);
-var $author$project$Main$spots = function (range) {
-	return $evancz$elm_playground$Playground$group(
-		A2(
-			$elm$core$List$map,
-			function (_v0) {
-				var x = _v0.a;
-				var y = _v0.b;
-				return A3($evancz$elm_playground$Playground$move, x, y, $author$project$Main$spot);
-			},
-			range));
-};
+var $author$project$Main$spot = F2(
+	function (i, _v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		return A3(
+			$evancz$elm_playground$Playground$move,
+			x * 8,
+			-((i * 25) + (y * 5)),
+			A2($evancz$elm_playground$Playground$circle, $evancz$elm_playground$Playground$brown, 12));
+	});
+var $author$project$Main$spots = A2(
+	$elm$core$Basics$composeL,
+	$evancz$elm_playground$Playground$group,
+	$elm$core$List$indexedMap($author$project$Main$spot));
 var $author$project$Main$giraffe = F3(
 	function (sunlight, listOfSpots, nod) {
 		return $evancz$elm_playground$Playground$group(
@@ -7070,8 +7093,8 @@ var $author$project$Main$giraffe = F3(
 					A3($author$project$Main$legs, $evancz$elm_playground$Playground$yellow, 40, 4)),
 					A3(
 					$evancz$elm_playground$Playground$move,
-					-30,
-					-150,
+					-20,
+					-60,
 					$author$project$Main$spots(listOfSpots))
 				]));
 	});
@@ -7079,35 +7102,28 @@ var $author$project$Main$view = F2(
 	function (computer, memory) {
 		return _List_fromArray(
 			[
-				$author$project$Main$background(memory.ab),
+				$author$project$Main$background(memory.ad),
 				A3(
 				$evancz$elm_playground$Playground$move,
-				memory.e,
-				memory.g,
-				A3($author$project$Main$giraffe, memory.ab, memory.aC, memory.L)),
-				$author$project$Main$balls(memory.M)
+				memory.d,
+				memory.f,
+				A3($author$project$Main$giraffe, memory.ad, memory.P, memory.M)),
+				$author$project$Main$balls(memory.N)
 			]);
 	});
 var $author$project$Main$main = function () {
 	var memory = {
-		L: 0,
-		M: _List_fromArray(
+		M: 0,
+		N: _List_fromArray(
 			[
-				{ag: $evancz$elm_playground$Playground$green, O: 12, e: 100, g: 50}
+				{U: $evancz$elm_playground$Playground$green, H: 12, d: 100, f: 50},
+				{U: $evancz$elm_playground$Playground$blue, H: 10, d: 900, f: -50}
 			]),
-		ai: 0,
-		aC: _List_fromArray(
-			[
-				_Utils_Tuple2(2, 0),
-				_Utils_Tuple2(18, 28),
-				_Utils_Tuple2(2, 50),
-				_Utils_Tuple2(15, 78),
-				_Utils_Tuple2(18, 90)
-			]),
-		ab: A3($evancz$elm_playground$Playground$rgb, 250, 245, 255),
-		ad: _Utils_Tuple2(0, 0),
-		e: 0,
-		g: 0
+		P: _List_Nil,
+		ad: A3($evancz$elm_playground$Playground$rgb, 250, 245, 255),
+		af: _Utils_Tuple2(0, 0),
+		d: 0,
+		f: 0
 	};
 	return A3($evancz$elm_playground$Playground$game, $author$project$Main$view, $author$project$Main$update, memory);
 }();
