@@ -3,6 +3,11 @@ module Main exposing (main)
 import Playground exposing (..)
 
 
+type Health
+    = NeedVitamins Int
+    | Dead
+
+
 main =
     let
         memory =
@@ -17,9 +22,19 @@ main =
             , aim = 0
             , velocity = ( 0, 0 )
             , sunlight = rgb 250 245 255
+            , health = NeedVitamins 0
             }
     in
-    game view update memory
+    game view updateWhenHealthy memory
+
+
+updateWhenHealthy computer memory =
+    case memory.health of
+        NeedVitamins _ ->
+            update computer memory
+
+        Dead ->
+            memory
 
 
 update computer memory =
@@ -49,6 +64,18 @@ update computer memory =
                 (maybeEatBall computer.time memory.x memory.y memory.aim)
                 ( memory.spots, [] )
                 movedBalls
+
+        newHealth =
+            case memory.health of
+                NeedVitamins amount ->
+                    if amount < 1000 then
+                        NeedVitamins (amount + 1)
+
+                    else
+                        Dead
+
+                Dead ->
+                    Dead
     in
     { memory
         | aim = newAim
@@ -57,6 +84,7 @@ update computer memory =
         , velocity = newVelocity
         , balls = afterEatingBalls
         , spots = afterEatingSpots
+        , health = newHealth
     }
 
 
@@ -144,7 +172,7 @@ maybeEatBall time x y aim b ( spotsSoFar, ballsSoFar ) =
 
 view computer memory =
     [ background memory.sunlight
-    , giraffe memory.sunlight memory.spots memory.aim
+    , giraffe memory.sunlight memory.health memory.spots memory.aim
         |> move memory.x memory.y
     , balls memory.balls
     ]
@@ -158,19 +186,32 @@ background sunlight =
         ]
 
 
-giraffe sunlight listOfSpots nod =
+giraffe sunlight health listOfSpots nod =
+    let
+        color =
+            case health of
+                NeedVitamins amount ->
+                    if amount < 500 then
+                        yellow
+
+                    else
+                        lightYellow
+
+                Dead ->
+                    gray
+    in
     group
-        [ head sunlight nod
-        , legs yellow 40 4
+        [ head sunlight color nod
+        , legs color 40 4
             |> move 0 (-40 * 8)
-        , spots listOfSpots
+        , spots health listOfSpots
             |> move -20 -60
         ]
 
 
-head sunlight nod =
+head sunlight color nod =
     group
-        [ headNeck yellow 40 8
+        [ headNeck color 40 8
         , face sunlight
             |> rotate nod
         ]
@@ -213,13 +254,26 @@ legs color size legLength =
         ]
 
 
-spot i ( x, y ) =
-    circle brown 12
+spot health i ( x, y ) =
+    let
+        color =
+            case health of
+                NeedVitamins amount ->
+                    if amount < 500 then
+                        brown
+
+                    else
+                        lightBrown
+
+                Dead ->
+                    darkGray
+    in
+    circle color 12
         |> move (x * 8) -(toFloat i * 25 + y * 5)
 
 
-spots =
-    group << List.indexedMap spot
+spots health =
+    group << List.indexedMap (spot health)
 
 
 balls =
