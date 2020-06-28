@@ -20,6 +20,7 @@ main =
             , x = 0
             , y = 0
             , aim = 0
+            , velocity = ( 0, 0 )
             , sunlight = rgb 250 245 255
             }
     in
@@ -39,16 +40,48 @@ update computer memory =
                 + (180 / pi)
                 * atan2 (computer.mouse.y - memory.y) (abs (computer.mouse.x - memory.x))
 
+        pull =
+            ( computer.mouse.x - memory.x - 50, computer.mouse.y - memory.y )
+
+        ( ( newX, newY ), newVelocity ) =
+            moveGiraffe ( memory.x, memory.y ) newAim memory.velocity pull
+
         movedBalls =
             List.map (moveBall computer.time) memory.balls
 
-        ( eaten, afterEatBalls ) =
+        ( eaten, afterEatingBalls ) =
             List.foldl
                 (maybeEatBall memory.x memory.y memory.aim)
                 ( memory.eaten, [] )
                 movedBalls
     in
-    { memory | aim = newAim, balls = afterEatBalls }
+    { memory
+        | aim = newAim
+        , x = newX
+        , y = newY
+        , velocity = newVelocity
+        , balls = afterEatingBalls
+    }
+
+
+moveGiraffe ( x, y ) aim ( vx, vy ) ( pullX, pullY ) =
+    let
+        drag =
+            2
+
+        vx_ =
+            (vx + pullX / 100) / drag
+
+        vy_ =
+            (vy + pullY / 100) / drag
+
+        x_ =
+            x + vx_
+
+        y_ =
+            y + vy_
+    in
+    ( ( x_, y_ ), ( vx_, vy_ ) )
 
 
 moveBall time b =
