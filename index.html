@@ -6713,7 +6713,7 @@ var $evancz$elm_playground$Playground$green = $evancz$elm_playground$Playground$
 var $elm$core$Basics$atan2 = _Basics_atan2;
 var $author$project$Main$update = F2(
 	function (computer, memory) {
-		var newAim = 45 + ((180 * $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, computer.an.D - memory.D, computer.an.C - memory.C));
+		var newAim = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, computer.an.D - memory.D, computer.an.C - memory.C));
 		return _Utils_update(
 			memory,
 			{N: newAim});

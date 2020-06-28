@@ -35,7 +35,7 @@ update computer memory =
         -- atan2 is to help sort out the various negative value cases
         newAim =
             45
-                + (180 * pi)
+                + (180 / pi)
                 * atan2 (computer.mouse.y - memory.y) (computer.mouse.x - memory.x)
     in
     { memory | aim = newAim }
