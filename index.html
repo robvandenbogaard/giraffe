@@ -533,11 +533,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ac.H === region.al.H)
+	if (region.ad.H === region.al.H)
 	{
-		return 'on line ' + region.ac.H;
+		return 'on line ' + region.ad.H;
 	}
-	return 'on lines ' + region.ac.H + ' through ' + region.al.H;
+	return 'on lines ' + region.ad.H + ' through ' + region.al.H;
 }
 
 
@@ -2719,8 +2719,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		s: func(record.s),
-		ad: record.ad,
-		Z: record.Z
+		ae: record.ae,
+		_: record._
 	}
 });
 
@@ -2989,10 +2989,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.s;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ad;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ae;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.Z) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value._) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3982,7 +3982,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 		impl.aG,
 		impl.aY,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl._ && impl._(sendToApp)
+			var divertHrefToApp = impl.aa && impl.aa(sendToApp)
 			var view = impl.aH;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -4057,7 +4057,7 @@ function _Browser_application(impl)
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		_: function(sendToApp)
+		aa: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -5197,7 +5197,7 @@ var $elm$browser$Browser$AnimationManager$Time = function (a) {
 };
 var $elm$browser$Browser$AnimationManager$State = F3(
 	function (subs, request, oldTime) {
-		return {Y: oldTime, aC: request, aE: subs};
+		return {Z: oldTime, aC: request, aE: subs};
 	});
 var $elm$browser$Browser$AnimationManager$init = $elm$core$Task$succeed(
 	A3($elm$browser$Browser$AnimationManager$State, _List_Nil, $elm$core$Maybe$Nothing, 0));
@@ -5209,7 +5209,7 @@ var $elm$core$Process$spawn = _Scheduler_spawn;
 var $elm$browser$Browser$AnimationManager$onEffects = F3(
 	function (router, subs, _v0) {
 		var request = _v0.aC;
-		var oldTime = _v0.Y;
+		var oldTime = _v0.Z;
 		var _v1 = _Utils_Tuple2(request, subs);
 		if (_v1.a.$ === 1) {
 			if (!_v1.b.b) {
@@ -5258,7 +5258,7 @@ var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$browser$Browser$AnimationManager$onSelfMsg = F3(
 	function (router, newTime, _v0) {
 		var subs = _v0.aE;
-		var oldTime = _v0.Y;
+		var oldTime = _v0.Z;
 		var send = function (sub) {
 			if (!sub.$) {
 				var tagger = sub.a;
@@ -5799,17 +5799,17 @@ var $evancz$elm_playground$Playground$gameSubscriptions = $elm$core$Platform$Sub
 		]));
 var $evancz$elm_playground$Playground$Mouse = F4(
 	function (x, y, down, click) {
-		return {U: click, aO: down, d: x, f: y};
+		return {V: click, aO: down, d: x, f: y};
 	});
 var $evancz$elm_playground$Playground$Time = $elm$core$Basics$identity;
 var $elm$core$Set$Set_elm_builtin = $elm$core$Basics$identity;
 var $elm$core$Set$empty = $elm$core$Dict$empty;
-var $evancz$elm_playground$Playground$emptyKeyboard = {S: false, aO: false, W: false, h: $elm$core$Set$empty, r: false, B: false, aa: false, ab: false, R: false};
+var $evancz$elm_playground$Playground$emptyKeyboard = {T: false, aO: false, X: false, h: $elm$core$Set$empty, r: false, B: false, ab: false, ac: false, S: false};
 var $evancz$elm_playground$Playground$mouseClick = F2(
 	function (bool, mouse) {
 		return _Utils_update(
 			mouse,
-			{U: bool});
+			{V: bool});
 	});
 var $evancz$elm_playground$Playground$mouseDown = F2(
 	function (bool, mouse) {
@@ -5828,7 +5828,7 @@ var $elm$core$Basics$negate = function (n) {
 };
 var $evancz$elm_playground$Playground$toScreen = F2(
 	function (width, height) {
-		return {T: (-height) / 2, ao: height, r: (-width) / 2, B: width / 2, ag: height / 2, aJ: width};
+		return {U: (-height) / 2, ao: height, r: (-width) / 2, B: width / 2, ag: height / 2, aJ: width};
 	});
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
@@ -6209,23 +6209,23 @@ var $evancz$elm_playground$Playground$updateKeyboard = F3(
 			case ' ':
 				return _Utils_update(
 					keyboard,
-					{h: keys, ab: isDown});
+					{h: keys, ac: isDown});
 			case 'Enter':
 				return _Utils_update(
 					keyboard,
-					{W: isDown, h: keys});
+					{X: isDown, h: keys});
 			case 'Shift':
 				return _Utils_update(
 					keyboard,
-					{h: keys, aa: isDown});
+					{h: keys, ab: isDown});
 			case 'Backspace':
 				return _Utils_update(
 					keyboard,
-					{S: isDown, h: keys});
+					{T: isDown, h: keys});
 			case 'ArrowUp':
 				return _Utils_update(
 					keyboard,
-					{h: keys, R: isDown});
+					{h: keys, S: isDown});
 			case 'ArrowDown':
 				return _Utils_update(
 					keyboard,
@@ -6256,14 +6256,14 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					$evancz$elm_playground$Playground$Game,
 					vis,
 					A2(updateMemory, computer, memory),
-					computer.Q.U ? _Utils_update(
+					computer.Q.V ? _Utils_update(
 						computer,
 						{
 							Q: A2($evancz$elm_playground$Playground$mouseClick, false, computer.Q),
-							af: time
+							R: time
 						}) : _Utils_update(
 						computer,
-						{af: time}));
+						{R: time}));
 			case 2:
 				var viewport = msg.a.aI;
 				return A3(
@@ -6353,7 +6353,7 @@ var $evancz$elm_playground$Playground$initialComputer = {
 	G: $evancz$elm_playground$Playground$emptyKeyboard,
 	Q: A4($evancz$elm_playground$Playground$Mouse, 0, 0, false, false),
 	y: A2($evancz$elm_playground$Playground$toScreen, 600, 600),
-	af: $elm$time$Time$millisToPosix(0)
+	R: $elm$time$Time$millisToPosix(0)
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -6658,7 +6658,7 @@ var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $evancz$elm_playground$Playground$render = F2(
 	function (screen, shapes) {
-		var y = $elm$core$String$fromFloat(screen.T);
+		var y = $elm$core$String$fromFloat(screen.U);
 		var x = $elm$core$String$fromFloat(screen.r);
 		var w = $elm$core$String$fromFloat(screen.aJ);
 		var h = $elm$core$String$fromFloat(screen.ao);
@@ -6735,6 +6735,7 @@ var $evancz$elm_playground$Playground$rgb = F3(
 			$evancz$elm_playground$Playground$colorClamp(b));
 	});
 var $author$project$Main$Dead = {$: 1};
+var $author$project$Main$ReadyForNextLevel = {$: 2};
 var $elm$core$Basics$abs = function (n) {
 	return (n < 0) ? (-n) : n;
 };
@@ -6829,7 +6830,7 @@ var $author$project$Main$update = F2(
 			$elm$core$Basics$abs(computer.Q.d - memory.d)));
 		var movedBalls = A2(
 			$elm$core$List$map,
-			$author$project$Main$moveBall(computer.af),
+			$author$project$Main$moveBall(computer.R),
 			memory.P);
 		var _v0 = A4(
 			$author$project$Main$moveGiraffe,
@@ -6848,26 +6849,12 @@ var $author$project$Main$update = F2(
 			movedBalls);
 		var ballsEaten = _v2.a;
 		var ballsAfterEating = _v2.b;
-		var newHealth = function () {
-			var _v3 = _Utils_Tuple2(memory.F, ballsEaten);
-			if (!_v3.a.$) {
-				if (!_v3.b) {
-					var amount = _v3.a.a;
-					return (amount < 1000) ? $author$project$Main$NeedVitamins(amount + 1) : $author$project$Main$Dead;
-				} else {
-					return $author$project$Main$NeedVitamins(0);
-				}
-			} else {
-				var _v4 = _v3.a;
-				return $author$project$Main$Dead;
-			}
-		}();
 		var spotsAfterEating = function () {
 			if (ballsEaten > 0) {
 				var random2 = $elm$core$Basics$sin(
-					A2($evancz$elm_playground$Playground$spin, 1, computer.af));
+					A2($evancz$elm_playground$Playground$spin, 1, computer.R));
 				var random1 = $elm$core$Basics$cos(
-					A2($evancz$elm_playground$Playground$spin, 1, computer.af));
+					A2($evancz$elm_playground$Playground$spin, 1, computer.R));
 				var newSpots = A2(
 					$elm$core$List$cons,
 					_Utils_Tuple2(random1, random2),
@@ -6877,6 +6864,18 @@ var $author$project$Main$update = F2(
 				return memory.J;
 			}
 		}();
+		var newHealth = function () {
+			var _v3 = memory.F;
+			switch (_v3.$) {
+				case 0:
+					var amount = _v3.a;
+					return ($elm$core$List$length(spotsAfterEating) > 9) ? $author$project$Main$ReadyForNextLevel : ((ballsEaten > 0) ? $author$project$Main$NeedVitamins(0) : ((amount < 1000) ? $author$project$Main$NeedVitamins(amount + 1) : $author$project$Main$Dead));
+				case 1:
+					return $author$project$Main$Dead;
+				default:
+					return $author$project$Main$ReadyForNextLevel;
+			}
+		}();
 		return _Utils_update(
 			memory,
 			{O: newAim, P: ballsAfterEating, F: newHealth, J: spotsAfterEating, ah: newVelocity, d: newX, f: newY});
@@ -6884,10 +6883,13 @@ var $author$project$Main$update = F2(
 var $author$project$Main$updateWhenHealthy = F2(
 	function (computer, memory) {
 		var _v0 = memory.F;
-		if (!_v0.$) {
-			return A2($author$project$Main$update, computer, memory);
-		} else {
-			return memory;
+		switch (_v0.$) {
+			case 0:
+				return A2($author$project$Main$update, computer, memory);
+			case 1:
+				return memory;
+			default:
+				return A2($author$project$Main$update, computer, memory);
 		}
 	});
 var $evancz$elm_playground$Playground$Group = function (a) {
@@ -6970,7 +6972,7 @@ var $evancz$elm_playground$Playground$move = F3(
 		return A6($evancz$elm_playground$Playground$Shape, x + dx, y + dy, a, s, o, f);
 	});
 var $author$project$Main$ball = function (_v0) {
-	var color = _v0.V;
+	var color = _v0.W;
 	var size = _v0.I;
 	var x = _v0.d;
 	var y = _v0.f;
@@ -7099,11 +7101,14 @@ var $author$project$Main$spot = F3(
 		var x = _v0.a;
 		var y = _v0.b;
 		var color = function () {
-			if (!health.$) {
-				var amount = health.a;
-				return (amount < 500) ? $evancz$elm_playground$Playground$brown : $evancz$elm_playground$Playground$lightBrown;
-			} else {
-				return $evancz$elm_playground$Playground$darkGray;
+			switch (health.$) {
+				case 0:
+					var amount = health.a;
+					return (amount < 500) ? $evancz$elm_playground$Playground$brown : $evancz$elm_playground$Playground$lightBrown;
+				case 1:
+					return $evancz$elm_playground$Playground$darkGray;
+				default:
+					return $evancz$elm_playground$Playground$brown;
 			}
 		}();
 		return A3(
@@ -7120,42 +7125,51 @@ var $author$project$Main$spots = function (health) {
 			$author$project$Main$spot(health)));
 };
 var $evancz$elm_playground$Playground$yellow = $evancz$elm_playground$Playground$Hex('#edd400');
-var $author$project$Main$giraffe = F4(
-	function (sunlight, health, listOfSpots, nod) {
+var $author$project$Main$giraffe = F5(
+	function (time, sunlight, health, listOfSpots, nod) {
 		var color = function () {
-			if (!health.$) {
-				var amount = health.a;
-				return (amount < 500) ? $evancz$elm_playground$Playground$yellow : $evancz$elm_playground$Playground$lightYellow;
-			} else {
-				return $evancz$elm_playground$Playground$gray;
+			switch (health.$) {
+				case 0:
+					var amount = health.a;
+					return (amount < 500) ? $evancz$elm_playground$Playground$yellow : $evancz$elm_playground$Playground$lightYellow;
+				case 1:
+					return $evancz$elm_playground$Playground$gray;
+				default:
+					return A3(
+						$evancz$elm_playground$Playground$rgb,
+						A4($evancz$elm_playground$Playground$wave, 0, 255, 3, time),
+						A4($evancz$elm_playground$Playground$wave, 0, 255, 5, time),
+						A4($evancz$elm_playground$Playground$wave, 0, 255, 1, time));
 			}
 		}();
-		return $evancz$elm_playground$Playground$group(
-			_List_fromArray(
-				[
-					A3($author$project$Main$head, sunlight, color, nod),
-					A3(
-					$evancz$elm_playground$Playground$move,
-					0,
-					(-40) * 8,
-					A3($author$project$Main$legs, color, 40, 4)),
-					A3(
-					$evancz$elm_playground$Playground$move,
-					-20,
-					-60,
-					A2($author$project$Main$spots, health, listOfSpots))
-				]));
+		return (_Utils_eq(health, $author$project$Main$ReadyForNextLevel) ? $evancz$elm_playground$Playground$moveUp(
+			A4($evancz$elm_playground$Playground$wave, 0, 50, 0.5, time)) : $elm$core$Basics$identity)(
+			$evancz$elm_playground$Playground$group(
+				_List_fromArray(
+					[
+						A3($author$project$Main$head, sunlight, color, nod),
+						A3(
+						$evancz$elm_playground$Playground$move,
+						0,
+						(-40) * 8,
+						A3($author$project$Main$legs, color, 40, 4)),
+						A3(
+						$evancz$elm_playground$Playground$move,
+						-20,
+						-60,
+						A2($author$project$Main$spots, health, listOfSpots))
+					])));
 	});
 var $author$project$Main$view = F2(
 	function (computer, memory) {
 		return _List_fromArray(
 			[
-				$author$project$Main$background(memory.ae),
+				$author$project$Main$background(memory.af),
 				A3(
 				$evancz$elm_playground$Playground$move,
 				memory.d,
 				memory.f,
-				A4($author$project$Main$giraffe, memory.ae, memory.F, memory.J, memory.O)),
+				A5($author$project$Main$giraffe, computer.R, memory.af, memory.F, memory.J, memory.O)),
 				$author$project$Main$balls(memory.P)
 			]);
 	});
@@ -7164,12 +7178,12 @@ var $author$project$Main$main = function () {
 		O: 0,
 		P: _List_fromArray(
 			[
-				{V: $evancz$elm_playground$Playground$green, I: 12, d: 100, f: 50},
-				{V: $evancz$elm_playground$Playground$blue, I: 10, d: 900, f: -50}
+				{W: $evancz$elm_playground$Playground$green, I: 12, d: 100, f: 50},
+				{W: $evancz$elm_playground$Playground$blue, I: 10, d: 900, f: -50}
 			]),
 		F: $author$project$Main$NeedVitamins(0),
 		J: _List_Nil,
-		ae: A3($evancz$elm_playground$Playground$rgb, 250, 245, 255),
+		af: A3($evancz$elm_playground$Playground$rgb, 250, 245, 255),
 		ah: _Utils_Tuple2(0, 0),
 		d: 0,
 		f: 0

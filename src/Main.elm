@@ -6,6 +6,7 @@ import Playground exposing (..)
 type Health
     = NeedVitamins Int
     | Dead
+    | ReadyForNextLevel
 
 
 main =
@@ -35,6 +36,9 @@ updateWhenHealthy computer memory =
 
         Dead ->
             memory
+
+        ReadyForNextLevel ->
+            update computer memory
 
 
 update computer memory =
@@ -83,19 +87,25 @@ update computer memory =
                 memory.spots
 
         newHealth =
-            case ( memory.health, ballsEaten ) of
-                ( NeedVitamins amount, 0 ) ->
-                    if amount < 1000 then
+            case memory.health of
+                NeedVitamins amount ->
+                    if List.length spotsAfterEating > 9 then
+                        ReadyForNextLevel
+
+                    else if ballsEaten > 0 then
+                        NeedVitamins 0
+
+                    else if amount < 1000 then
                         NeedVitamins (amount + 1)
 
                     else
                         Dead
 
-                ( NeedVitamins _, _ ) ->
-                    NeedVitamins 0
-
-                ( Dead, _ ) ->
+                Dead ->
                     Dead
+
+                ReadyForNextLevel ->
+                    ReadyForNextLevel
     in
     { memory
         | aim = newAim
@@ -182,7 +192,7 @@ maybeEatBall x y aim b ( eaten, ballsSoFar ) =
 
 view computer memory =
     [ background memory.sunlight
-    , giraffe memory.sunlight memory.health memory.spots memory.aim
+    , giraffe computer.time memory.sunlight memory.health memory.spots memory.aim
         |> move memory.x memory.y
     , balls memory.balls
     ]
@@ -196,7 +206,7 @@ background sunlight =
         ]
 
 
-giraffe sunlight health listOfSpots nod =
+giraffe time sunlight health listOfSpots nod =
     let
         color =
             case health of
@@ -209,6 +219,9 @@ giraffe sunlight health listOfSpots nod =
 
                 Dead ->
                     gray
+
+                ReadyForNextLevel ->
+                    rgb (wave 0 255 3 time) (wave 0 255 5 time) (wave 0 255 1 time)
     in
     group
         [ head sunlight color nod
@@ -217,6 +230,12 @@ giraffe sunlight health listOfSpots nod =
         , spots health listOfSpots
             |> move -20 -60
         ]
+        |> (if health == ReadyForNextLevel then
+                moveUp (wave 0 50 0.5 time)
+
+            else
+                identity
+           )
 
 
 head sunlight color nod =
@@ -277,6 +296,9 @@ spot health i ( x, y ) =
 
                 Dead ->
                     darkGray
+
+                ReadyForNextLevel ->
+                    brown
     in
     circle color 12
         |> move (x * 8) -(toFloat i * 25 + y * 5)
