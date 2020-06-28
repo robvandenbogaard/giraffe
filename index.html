@@ -6804,9 +6804,9 @@ var $author$project$Main$moveGiraffe = F4(
 		var pullY = _v2.b;
 		var drag = 2;
 		var vx_ = (vx + (pullX / 100)) / drag;
-		var x_ = x + vx_;
+		var x_ = A3($elm$core$Basics$clamp, -1000, 1000, x + vx_);
 		var vy_ = (vy + (pullY / 100)) / drag;
-		var y_ = y + vy_;
+		var y_ = A3($elm$core$Basics$clamp, -150, 200, y + vy_);
 		return _Utils_Tuple2(
 			_Utils_Tuple2(x_, y_),
 			_Utils_Tuple2(vx_, vy_));
@@ -7014,11 +7014,34 @@ var $author$project$Main$head = F2(
 		return $evancz$elm_playground$Playground$group(
 			_List_fromArray(
 				[
-					A3($author$project$Main$headNeck, $evancz$elm_playground$Playground$yellow, 40, 10),
+					A3($author$project$Main$headNeck, $evancz$elm_playground$Playground$yellow, 40, 8),
 					A2(
 					$evancz$elm_playground$Playground$rotate,
 					nod,
 					$author$project$Main$face(sunlight))
+				]));
+	});
+var $author$project$Main$legs = F3(
+	function (color, size, legLength) {
+		var leg = A2(
+			$evancz$elm_playground$Playground$moveDown,
+			(size * legLength) / 2,
+			A2(
+				$evancz$elm_playground$Playground$moveLeft,
+				size / 3,
+				A3($evancz$elm_playground$Playground$rectangle, color, (size * 2) / 3, size * legLength)));
+		return $evancz$elm_playground$Playground$group(
+			_List_fromArray(
+				[
+					A2($evancz$elm_playground$Playground$moveLeft, (size * 4) / 3, leg),
+					leg,
+					A2(
+					$evancz$elm_playground$Playground$moveDown,
+					size / 6,
+					A2(
+						$evancz$elm_playground$Playground$moveLeft,
+						size,
+						A2($evancz$elm_playground$Playground$circle, color, size)))
 				]));
 	});
 var $evancz$elm_playground$Playground$brown = $evancz$elm_playground$Playground$Hex('#c17d11');
@@ -7040,6 +7063,11 @@ var $author$project$Main$giraffe = F3(
 			_List_fromArray(
 				[
 					A2($author$project$Main$head, sunlight, nod),
+					A3(
+					$evancz$elm_playground$Playground$move,
+					0,
+					(-40) * 8,
+					A3($author$project$Main$legs, $evancz$elm_playground$Playground$yellow, 40, 4)),
 					A3(
 					$evancz$elm_playground$Playground$move,
 					-30,

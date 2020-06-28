@@ -76,10 +76,10 @@ moveGiraffe ( x, y ) aim ( vx, vy ) ( pullX, pullY ) =
             (vy + pullY / 100) / drag
 
         x_ =
-            x + vx_
+            clamp -1000 1000 (x + vx_)
 
         y_ =
-            y + vy_
+            clamp -150 200 (y + vy_)
     in
     ( ( x_, y_ ), ( vx_, vy_ ) )
 
@@ -155,6 +155,8 @@ background sunlight =
 giraffe sunlight listOfSpots nod =
     group
         [ head sunlight nod
+        , legs yellow 40 4
+            |> move 0 (-40 * 8)
         , spots listOfSpots
             |> move -30 -150
         ]
@@ -162,7 +164,7 @@ giraffe sunlight listOfSpots nod =
 
 head sunlight nod =
     group
-        [ headNeck yellow 40 10
+        [ headNeck yellow 40 8
         , face sunlight
             |> rotate nod
         ]
@@ -186,6 +188,22 @@ headNeck color size neckLength =
         , rectangle color size (size * neckLength)
             |> moveDown (size * (neckLength / 2))
             |> moveLeft (size / 2)
+        ]
+
+
+legs color size legLength =
+    let
+        leg =
+            rectangle color (size * 2 / 3) (size * legLength)
+                |> moveLeft (size / 3)
+                |> moveDown (size * legLength / 2)
+    in
+    group
+        [ moveLeft (size * 4 / 3) leg
+        , leg
+        , circle color size
+            |> moveLeft size
+            |> moveDown (size / 6)
         ]
 
 
