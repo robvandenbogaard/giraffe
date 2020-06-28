@@ -38,8 +38,28 @@ update computer memory =
             45
                 + (180 / pi)
                 * atan2 (computer.mouse.y - memory.y) (abs (computer.mouse.x - memory.x))
+
+        movedBalls =
+            List.map (moveBall computer.time) memory.balls
     in
-    { memory | aim = newAim }
+    { memory | aim = newAim, balls = movedBalls }
+
+
+moveBall time b =
+    let
+        x_ =
+            b.x - 2
+    in
+    { b
+        | size = b.size + wave -0.1 0.1 1 time
+        , x =
+            if x_ > -1000 then
+                x_
+
+            else
+                1000
+        , y = b.y + wave -0.2 0.2 20 time
+    }
 
 
 view computer memory =
