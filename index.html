@@ -533,11 +533,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ac.H === region.ak.H)
+	if (region.ac.H === region.al.H)
 	{
 		return 'on line ' + region.ac.H;
 	}
-	return 'on lines ' + region.ac.H + ' through ' + region.ak.H;
+	return 'on lines ' + region.ac.H + ' through ' + region.al.H;
 }
 
 
@@ -1871,7 +1871,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ap,
+		impl.aq,
 		impl.aG,
 		impl.aY,
 		function() { return function() {} }
@@ -3942,7 +3942,7 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ap,
+		impl.aq,
 		impl.aG,
 		impl.aY,
 		function(sendToApp, initialModel) {
@@ -3978,7 +3978,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ap,
+		impl.aq,
 		impl.aG,
 		impl.aY,
 		function(sendToApp, initialModel) {
@@ -4073,9 +4073,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.ay === next.ay
-							&& curr.ao === next.ao
-							&& curr.av.a === next.av.a
+							&& curr.az === next.az
+							&& curr.ap === next.ap
+							&& curr.aw.a === next.aw.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4083,9 +4083,9 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		ap: function(flags)
+		aq: function(flags)
 		{
-			return A3(impl.ap, flags, _Browser_getUrl(), key);
+			return A3(impl.aq, flags, _Browser_getUrl(), key);
 		},
 		aH: impl.aH,
 		aG: impl.aG,
@@ -4246,12 +4246,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aC: _Browser_getScene(),
+		aD: _Browser_getScene(),
 		aI: {
 			d: _Browser_window.pageXOffset,
 			f: _Browser_window.pageYOffset,
 			aJ: _Browser_doc.documentElement.clientWidth,
-			an: _Browser_doc.documentElement.clientHeight
+			ao: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4262,7 +4262,7 @@ function _Browser_getScene()
 	var elem = _Browser_doc.documentElement;
 	return {
 		aJ: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		an: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		ao: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4285,15 +4285,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aC: {
+			aD: {
 				aJ: node.scrollWidth,
-				an: node.scrollHeight
+				ao: node.scrollHeight
 			},
 			aI: {
 				d: node.scrollLeft,
 				f: node.scrollTop,
 				aJ: node.clientWidth,
-				an: node.clientHeight
+				ao: node.clientHeight
 			}
 		};
 	});
@@ -4323,18 +4323,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aC: _Browser_getScene(),
+			aD: _Browser_getScene(),
 			aI: {
 				d: x,
 				f: y,
 				aJ: _Browser_doc.documentElement.clientWidth,
-				an: _Browser_doc.documentElement.clientHeight
+				ao: _Browser_doc.documentElement.clientHeight
 			},
 			aP: {
 				d: x + rect.left,
 				f: y + rect.top,
 				aJ: rect.width,
-				an: rect.height
+				ao: rect.height
 			}
 		};
 	});
@@ -4891,7 +4891,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {am: fragment, ao: host, at: path, av: port_, ay: protocol, az: query};
+		return {an: fragment, ap: host, au: path, aw: port_, az: protocol, aA: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5197,7 +5197,7 @@ var $elm$browser$Browser$AnimationManager$Time = function (a) {
 };
 var $elm$browser$Browser$AnimationManager$State = F3(
 	function (subs, request, oldTime) {
-		return {Y: oldTime, aB: request, aD: subs};
+		return {Y: oldTime, aC: request, aE: subs};
 	});
 var $elm$browser$Browser$AnimationManager$init = $elm$core$Task$succeed(
 	A3($elm$browser$Browser$AnimationManager$State, _List_Nil, $elm$core$Maybe$Nothing, 0));
@@ -5208,7 +5208,7 @@ var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$core$Process$spawn = _Scheduler_spawn;
 var $elm$browser$Browser$AnimationManager$onEffects = F3(
 	function (router, subs, _v0) {
-		var request = _v0.aB;
+		var request = _v0.aC;
 		var oldTime = _v0.Y;
 		var _v1 = _Utils_Tuple2(request, subs);
 		if (_v1.a.$ === 1) {
@@ -5257,7 +5257,7 @@ var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$browser$Browser$AnimationManager$onSelfMsg = F3(
 	function (router, newTime, _v0) {
-		var subs = _v0.aD;
+		var subs = _v0.aE;
 		var oldTime = _v0.Y;
 		var send = function (sub) {
 			if (!sub.$) {
@@ -5331,7 +5331,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {au: pids, aD: subs};
+		return {av: pids, aE: subs};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5562,7 +5562,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {al: event, aq: key};
+		return {am: event, ar: key};
 	});
 var $elm$browser$Browser$Events$spawn = F3(
 	function (router, key, _v0) {
@@ -5636,7 +5636,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.au,
+			state.av,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -5682,8 +5682,8 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.aq;
-		var event = _v0.al;
+		var key = _v0.ar;
+		var event = _v0.am;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -5692,7 +5692,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.aD);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.aE);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -5828,7 +5828,7 @@ var $elm$core$Basics$negate = function (n) {
 };
 var $evancz$elm_playground$Playground$toScreen = F2(
 	function (width, height) {
-		return {T: (-height) / 2, an: height, r: (-width) / 2, B: width / 2, af: height / 2, aJ: width};
+		return {T: (-height) / 2, ao: height, r: (-width) / 2, B: width / 2, ag: height / 2, aJ: width};
 	});
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
@@ -6256,14 +6256,14 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					$evancz$elm_playground$Playground$Game,
 					vis,
 					A2(updateMemory, computer, memory),
-					computer.P.U ? _Utils_update(
+					computer.Q.U ? _Utils_update(
 						computer,
 						{
-							P: A2($evancz$elm_playground$Playground$mouseClick, false, computer.P),
-							aF: time
+							Q: A2($evancz$elm_playground$Playground$mouseClick, false, computer.Q),
+							af: time
 						}) : _Utils_update(
 						computer,
-						{aF: time}));
+						{af: time}));
 			case 2:
 				var viewport = msg.a.aI;
 				return A3(
@@ -6273,7 +6273,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							y: A2($evancz$elm_playground$Playground$toScreen, viewport.aJ, viewport.an)
+							y: A2($evancz$elm_playground$Playground$toScreen, viewport.aJ, viewport.ao)
 						}));
 			case 3:
 				var w = msg.a;
@@ -6302,7 +6302,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 			case 5:
 				var pageX = msg.a;
 				var pageY = msg.b;
-				var y = computer.y.af - pageY;
+				var y = computer.y.ag - pageY;
 				var x = computer.y.r + pageX;
 				return A3(
 					$evancz$elm_playground$Playground$Game,
@@ -6311,7 +6311,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							P: A3($evancz$elm_playground$Playground$mouseMove, x, y, computer.P)
+							Q: A3($evancz$elm_playground$Playground$mouseMove, x, y, computer.Q)
 						}));
 			case 6:
 				return A3(
@@ -6321,7 +6321,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							P: A2($evancz$elm_playground$Playground$mouseClick, true, computer.P)
+							Q: A2($evancz$elm_playground$Playground$mouseClick, true, computer.Q)
 						}));
 			case 7:
 				var isDown = msg.a;
@@ -6332,7 +6332,7 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 					_Utils_update(
 						computer,
 						{
-							P: A2($evancz$elm_playground$Playground$mouseDown, isDown, computer.P)
+							Q: A2($evancz$elm_playground$Playground$mouseDown, isDown, computer.Q)
 						}));
 			default:
 				var visibility = msg.a;
@@ -6344,16 +6344,16 @@ var $evancz$elm_playground$Playground$gameUpdate = F3(
 						computer,
 						{
 							G: $evancz$elm_playground$Playground$emptyKeyboard,
-							P: A4($evancz$elm_playground$Playground$Mouse, computer.P.d, computer.P.f, false, false)
+							Q: A4($evancz$elm_playground$Playground$Mouse, computer.Q.d, computer.Q.f, false, false)
 						}));
 		}
 	});
 var $elm$browser$Browser$Dom$getViewport = _Browser_withWindow(_Browser_getViewport);
 var $evancz$elm_playground$Playground$initialComputer = {
 	G: $evancz$elm_playground$Playground$emptyKeyboard,
-	P: A4($evancz$elm_playground$Playground$Mouse, 0, 0, false, false),
+	Q: A4($evancz$elm_playground$Playground$Mouse, 0, 0, false, false),
 	y: A2($evancz$elm_playground$Playground$toScreen, 600, 600),
-	aF: $elm$time$Time$millisToPosix(0)
+	af: $elm$time$Time$millisToPosix(0)
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -6661,7 +6661,7 @@ var $evancz$elm_playground$Playground$render = F2(
 		var y = $elm$core$String$fromFloat(screen.T);
 		var x = $elm$core$String$fromFloat(screen.r);
 		var w = $elm$core$String$fromFloat(screen.aJ);
-		var h = $elm$core$String$fromFloat(screen.an);
+		var h = $elm$core$String$fromFloat(screen.ao);
 		return A2(
 			$elm$svg$Svg$svg,
 			_List_fromArray(
@@ -6711,7 +6711,7 @@ var $evancz$elm_playground$Playground$game = F3(
 				A2($elm$core$Task$perform, $evancz$elm_playground$Playground$GotViewport, $elm$browser$Browser$Dom$getViewport));
 		};
 		return $elm$browser$Browser$document(
-			{ap: init, aY: subscriptions, aG: update, aH: view});
+			{aq: init, aY: subscriptions, aG: update, aH: view});
 	});
 var $evancz$elm_playground$Playground$green = $evancz$elm_playground$Playground$Hex('#73d216');
 var $evancz$elm_playground$Playground$Rgb = F3(
@@ -6740,6 +6740,33 @@ var $elm$core$Basics$abs = function (n) {
 };
 var $elm$core$Basics$atan2 = _Basics_atan2;
 var $elm$core$Basics$pow = _Basics_pow;
+var $elm$core$Basics$sqrt = _Basics_sqrt;
+var $author$project$Main$maybeEatBall = F5(
+	function (x, y, aim, b, _v0) {
+		var eaten = _v0.a;
+		var ballsSoFar = _v0.b;
+		if (_Utils_cmp(b.d, x + 5) < 0) {
+			return _Utils_Tuple2(
+				eaten,
+				A2($elm$core$List$cons, b, ballsSoFar));
+		} else {
+			var distanceToBall = $elm$core$Basics$sqrt(
+				A2($elm$core$Basics$pow, b.d - x, 2) + A2($elm$core$Basics$pow, b.f - y, 2));
+			var aimToBall = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, b.f - y, b.d - x));
+			return ((distanceToBall > 50) || (distanceToBall < 20)) ? _Utils_Tuple2(
+				eaten,
+				A2($elm$core$List$cons, b, ballsSoFar)) : (($elm$core$Basics$abs(aimToBall - aim) > 10) ? _Utils_Tuple2(
+				eaten,
+				A2($elm$core$List$cons, b, ballsSoFar)) : _Utils_Tuple2(
+				eaten + 1,
+				A2(
+					$elm$core$List$cons,
+					_Utils_update(
+						b,
+						{d: 1000}),
+					ballsSoFar)));
+		}
+	});
 var $elm$core$Basics$modBy = _Basics_modBy;
 var $elm$time$Time$posixToMillis = function (_v0) {
 	var millis = _v0;
@@ -6754,53 +6781,6 @@ var $evancz$elm_playground$Playground$toFrac = F2(
 			$elm$core$Basics$modBy,
 			$elm$core$Basics$round(p),
 			ms) / p;
-	});
-var $evancz$elm_playground$Playground$spin = F2(
-	function (period, time) {
-		return 360 * A2($evancz$elm_playground$Playground$toFrac, period, time);
-	});
-var $elm$core$Basics$sqrt = _Basics_sqrt;
-var $author$project$Main$maybeEatBall = F6(
-	function (time, x, y, aim, b, _v0) {
-		var spotsSoFar = _v0.a;
-		var ballsSoFar = _v0.b;
-		if (_Utils_cmp(b.d, x + 5) < 0) {
-			return _Utils_Tuple2(
-				spotsSoFar,
-				A2($elm$core$List$cons, b, ballsSoFar));
-		} else {
-			var distanceToBall = $elm$core$Basics$sqrt(
-				A2($elm$core$Basics$pow, b.d - x, 2) + A2($elm$core$Basics$pow, b.f - y, 2));
-			var aimToBall = 45 + ((180 / $elm$core$Basics$pi) * A2($elm$core$Basics$atan2, b.f - y, b.d - x));
-			if ((distanceToBall > 50) || (distanceToBall < 20)) {
-				return _Utils_Tuple2(
-					spotsSoFar,
-					A2($elm$core$List$cons, b, ballsSoFar));
-			} else {
-				if ($elm$core$Basics$abs(aimToBall - aim) > 10) {
-					return _Utils_Tuple2(
-						spotsSoFar,
-						A2($elm$core$List$cons, b, ballsSoFar));
-				} else {
-					var random2 = $elm$core$Basics$sin(
-						A2($evancz$elm_playground$Playground$spin, 1, time));
-					var random1 = $elm$core$Basics$cos(
-						A2($evancz$elm_playground$Playground$spin, 1, time));
-					var newSpots = A2(
-						$elm$core$List$cons,
-						_Utils_Tuple2(random1, random2),
-						$elm$core$List$reverse(spotsSoFar));
-					return _Utils_Tuple2(
-						$elm$core$List$reverse(newSpots),
-						A2(
-							$elm$core$List$cons,
-							_Utils_update(
-								b,
-								{d: 1000}),
-							ballsSoFar));
-				}
-			}
-		}
 	});
 var $evancz$elm_playground$Playground$wave = F4(
 	function (lo, hi, period, time) {
@@ -6836,31 +6816,26 @@ var $author$project$Main$moveGiraffe = F4(
 			_Utils_Tuple2(x_, y_),
 			_Utils_Tuple2(vx_, vy_));
 	});
+var $evancz$elm_playground$Playground$spin = F2(
+	function (period, time) {
+		return 360 * A2($evancz$elm_playground$Playground$toFrac, period, time);
+	});
 var $author$project$Main$update = F2(
 	function (computer, memory) {
-		var pull = _Utils_Tuple2((computer.P.d - memory.d) - 50, computer.P.f - memory.f);
-		var newHealth = function () {
-			var _v3 = memory.F;
-			if (!_v3.$) {
-				var amount = _v3.a;
-				return (amount < 1000) ? $author$project$Main$NeedVitamins(amount + 1) : $author$project$Main$Dead;
-			} else {
-				return $author$project$Main$Dead;
-			}
-		}();
+		var pull = _Utils_Tuple2((computer.Q.d - memory.d) - 50, computer.Q.f - memory.f);
 		var newAim = 45 + ((180 / $elm$core$Basics$pi) * A2(
 			$elm$core$Basics$atan2,
-			computer.P.f - memory.f,
-			$elm$core$Basics$abs(computer.P.d - memory.d)));
+			computer.Q.f - memory.f,
+			$elm$core$Basics$abs(computer.Q.d - memory.d)));
 		var movedBalls = A2(
 			$elm$core$List$map,
-			$author$project$Main$moveBall(computer.aF),
-			memory.O);
+			$author$project$Main$moveBall(computer.af),
+			memory.P);
 		var _v0 = A4(
 			$author$project$Main$moveGiraffe,
 			_Utils_Tuple2(memory.d, memory.f),
 			newAim,
-			memory.ag,
+			memory.ah,
 			pull);
 		var _v1 = _v0.a;
 		var newX = _v1.a;
@@ -6868,14 +6843,43 @@ var $author$project$Main$update = F2(
 		var newVelocity = _v0.b;
 		var _v2 = A3(
 			$elm$core$List$foldl,
-			A4($author$project$Main$maybeEatBall, computer.aF, memory.d, memory.f, memory.N),
-			_Utils_Tuple2(memory.Q, _List_Nil),
+			A3($author$project$Main$maybeEatBall, memory.d, memory.f, memory.O),
+			_Utils_Tuple2(0, _List_Nil),
 			movedBalls);
-		var afterEatingSpots = _v2.a;
-		var afterEatingBalls = _v2.b;
+		var ballsEaten = _v2.a;
+		var ballsAfterEating = _v2.b;
+		var newHealth = function () {
+			var _v3 = _Utils_Tuple2(memory.F, ballsEaten);
+			if (!_v3.a.$) {
+				if (!_v3.b) {
+					var amount = _v3.a.a;
+					return (amount < 1000) ? $author$project$Main$NeedVitamins(amount + 1) : $author$project$Main$Dead;
+				} else {
+					return $author$project$Main$NeedVitamins(0);
+				}
+			} else {
+				var _v4 = _v3.a;
+				return $author$project$Main$Dead;
+			}
+		}();
+		var spotsAfterEating = function () {
+			if (ballsEaten > 0) {
+				var random2 = $elm$core$Basics$sin(
+					A2($evancz$elm_playground$Playground$spin, 1, computer.af));
+				var random1 = $elm$core$Basics$cos(
+					A2($evancz$elm_playground$Playground$spin, 1, computer.af));
+				var newSpots = A2(
+					$elm$core$List$cons,
+					_Utils_Tuple2(random1, random2),
+					$elm$core$List$reverse(memory.J));
+				return $elm$core$List$reverse(newSpots);
+			} else {
+				return memory.J;
+			}
+		}();
 		return _Utils_update(
 			memory,
-			{N: newAim, O: afterEatingBalls, F: newHealth, Q: afterEatingSpots, ag: newVelocity, d: newX, f: newY});
+			{O: newAim, P: ballsAfterEating, F: newHealth, J: spotsAfterEating, ah: newVelocity, d: newX, f: newY});
 	});
 var $author$project$Main$updateWhenHealthy = F2(
 	function (computer, memory) {
@@ -7151,22 +7155,22 @@ var $author$project$Main$view = F2(
 				$evancz$elm_playground$Playground$move,
 				memory.d,
 				memory.f,
-				A4($author$project$Main$giraffe, memory.ae, memory.F, memory.Q, memory.N)),
-				$author$project$Main$balls(memory.O)
+				A4($author$project$Main$giraffe, memory.ae, memory.F, memory.J, memory.O)),
+				$author$project$Main$balls(memory.P)
 			]);
 	});
 var $author$project$Main$main = function () {
 	var memory = {
-		N: 0,
-		O: _List_fromArray(
+		O: 0,
+		P: _List_fromArray(
 			[
 				{V: $evancz$elm_playground$Playground$green, I: 12, d: 100, f: 50},
 				{V: $evancz$elm_playground$Playground$blue, I: 10, d: 900, f: -50}
 			]),
 		F: $author$project$Main$NeedVitamins(0),
-		Q: _List_Nil,
+		J: _List_Nil,
 		ae: A3($evancz$elm_playground$Playground$rgb, 250, 245, 255),
-		ag: _Utils_Tuple2(0, 0),
+		ah: _Utils_Tuple2(0, 0),
 		d: 0,
 		f: 0
 	};

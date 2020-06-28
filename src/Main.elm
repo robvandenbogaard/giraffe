@@ -59,22 +59,42 @@ update computer memory =
         movedBalls =
             List.map (moveBall computer.time) memory.balls
 
-        ( afterEatingSpots, afterEatingBalls ) =
+        ( ballsEaten, ballsAfterEating ) =
             List.foldl
-                (maybeEatBall computer.time memory.x memory.y memory.aim)
-                ( memory.spots, [] )
+                (maybeEatBall memory.x memory.y memory.aim)
+                ( 0, [] )
                 movedBalls
 
+        spotsAfterEating =
+            if ballsEaten > 0 then
+                let
+                    random1 =
+                        cos (spin 1 computer.time)
+
+                    random2 =
+                        sin (spin 1 computer.time)
+
+                    newSpots =
+                        ( random1, random2 ) :: List.reverse memory.spots
+                in
+                List.reverse newSpots
+
+            else
+                memory.spots
+
         newHealth =
-            case memory.health of
-                NeedVitamins amount ->
+            case ( memory.health, ballsEaten ) of
+                ( NeedVitamins amount, 0 ) ->
                     if amount < 1000 then
                         NeedVitamins (amount + 1)
 
                     else
                         Dead
 
-                Dead ->
+                ( NeedVitamins _, _ ) ->
+                    NeedVitamins 0
+
+                ( Dead, _ ) ->
                     Dead
     in
     { memory
@@ -82,8 +102,8 @@ update computer memory =
         , x = newX
         , y = newY
         , velocity = newVelocity
-        , balls = afterEatingBalls
-        , spots = afterEatingSpots
+        , balls = ballsAfterEating
+        , spots = spotsAfterEating
         , health = newHealth
     }
 
@@ -125,15 +145,15 @@ moveBall time b =
     }
 
 
-maybeEatBall time x y aim b ( spotsSoFar, ballsSoFar ) =
+maybeEatBall x y aim b ( eaten, ballsSoFar ) =
     -- if the ball is behind the giraffe it can't be eaten; in that case we just
-    -- return the list of spots so far and add the ball unchanged to the list
+    -- return the amount eaten so far and add the ball unchanged to the list
     -- of balls we checked so far
     -- we compare with x + 5, just to the right of the position of the giraffe
     -- because its mouth is on the right side of its head, and to avoid division
     -- by zero in further calculations
     if b.x < x + 5 then
-        ( spotsSoFar, b :: ballsSoFar )
+        ( eaten, b :: ballsSoFar )
 
     else
         let
@@ -145,29 +165,19 @@ maybeEatBall time x y aim b ( spotsSoFar, ballsSoFar ) =
         in
         if distanceToBall > 50 || distanceToBall < 20 then
             -- this ball is too far away or to close by to get eaten; just
-            -- return the spots so far and add the ball unchanged to the
-            -- list of balls already checked
-            ( spotsSoFar, b :: ballsSoFar )
+            -- return the number of eaten balls so far and add the ball
+            -- unchanged to the list of balls already checked
+            ( eaten, b :: ballsSoFar )
 
         else if abs (aimToBall - aim) > 10 then
             -- the ball is near but the giraffe is not aiming its mouth in its
             -- direction, so it won't get eaten
-            ( spotsSoFar, b :: ballsSoFar )
+            ( eaten, b :: ballsSoFar )
 
         else
-            -- yesss! we can eat the ball; add a spot for the giraffe and move
+            -- yesss! we can eat the ball; increase the "eaten" score and move
             -- the ball out of sight to the right so it'll reappear as a new one
-            let
-                random1 =
-                    cos (spin 1 time)
-
-                random2 =
-                    sin (spin 1 time)
-
-                newSpots =
-                    ( random1, random2 ) :: List.reverse spotsSoFar
-            in
-            ( List.reverse newSpots, { b | x = 1000 } :: ballsSoFar )
+            ( eaten + 1, { b | x = 1000 } :: ballsSoFar )
 
 
 view computer memory =
