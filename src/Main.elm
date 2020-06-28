@@ -36,7 +36,7 @@ update computer memory =
         newAim =
             45
                 + (180 / pi)
-                * atan2 (computer.mouse.y - memory.y) (computer.mouse.x - memory.x)
+                * atan2 (computer.mouse.y - memory.y) (abs (computer.mouse.x - memory.x))
     in
     { memory | aim = newAim }
 
