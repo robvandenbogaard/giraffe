@@ -20,6 +20,7 @@ main =
             , x = 0
             , y = 0
             , aim = 0
+            , sunlight = rgb 250 245 255
             }
     in
     game view update memory
@@ -42,33 +43,42 @@ update computer memory =
 
 
 view computer memory =
-    [ giraffe memory.spots memory.aim
+    [ background memory.sunlight
+    , giraffe memory.sunlight memory.spots memory.aim
         |> move memory.x memory.y
     , balls memory.balls
     ]
 
 
-giraffe listOfSpots nod =
+background sunlight =
     group
-        [ head nod
+        [ rectangle sunlight 2000 2000
+        , rectangle lightBrown 2000 400
+            |> moveDown 400
+        ]
+
+
+giraffe sunlight listOfSpots nod =
+    group
+        [ head sunlight nod
         , spots listOfSpots
             |> move -30 -150
         ]
 
 
-head nod =
+head sunlight nod =
     group
         [ headNeck yellow 40 10
-        , face
+        , face sunlight
             |> rotate nod
         ]
 
 
-face =
+face sunlight =
     group
         [ circle black 15
             |> move 10 10
-        , circle white 10
+        , circle sunlight 10
             |> move 25 -25
         , headNeck orange 10 3
             |> moveUp 60

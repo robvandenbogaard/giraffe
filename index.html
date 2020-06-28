@@ -6724,13 +6724,62 @@ var $author$project$Main$update = F2(
 			memory,
 			{N: newAim});
 	});
-var $evancz$elm_playground$Playground$Circle = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
+var $evancz$elm_playground$Playground$Group = function (a) {
+	return {$: 7, a: a};
+};
 var $evancz$elm_playground$Playground$Shape = F6(
 	function (a, b, c, d, e, f) {
 		return {$: 0, a: a, b: b, c: c, d: d, e: e, f: f};
+	});
+var $evancz$elm_playground$Playground$group = function (shapes) {
+	return A6(
+		$evancz$elm_playground$Playground$Shape,
+		0,
+		0,
+		0,
+		1,
+		1,
+		$evancz$elm_playground$Playground$Group(shapes));
+};
+var $evancz$elm_playground$Playground$lightBrown = $evancz$elm_playground$Playground$Hex('#e9b96e');
+var $evancz$elm_playground$Playground$moveDown = F2(
+	function (dy, _v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		var a = _v0.c;
+		var s = _v0.d;
+		var o = _v0.e;
+		var f = _v0.f;
+		return A6($evancz$elm_playground$Playground$Shape, x, y - dy, a, s, o, f);
+	});
+var $evancz$elm_playground$Playground$Rectangle = F3(
+	function (a, b, c) {
+		return {$: 2, a: a, b: b, c: c};
+	});
+var $evancz$elm_playground$Playground$rectangle = F3(
+	function (color, width, height) {
+		return A6(
+			$evancz$elm_playground$Playground$Shape,
+			0,
+			0,
+			0,
+			1,
+			1,
+			A3($evancz$elm_playground$Playground$Rectangle, color, width, height));
+	});
+var $evancz$elm_playground$Playground$white = $evancz$elm_playground$Playground$Hex('#FFFFFF');
+var $author$project$Main$background = $evancz$elm_playground$Playground$group(
+	_List_fromArray(
+		[
+			A3($evancz$elm_playground$Playground$rectangle, $evancz$elm_playground$Playground$white, 2000, 2000),
+			A2(
+			$evancz$elm_playground$Playground$moveDown,
+			400,
+			A3($evancz$elm_playground$Playground$rectangle, $evancz$elm_playground$Playground$lightBrown, 2000, 400))
+		]));
+var $evancz$elm_playground$Playground$Circle = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
 	});
 var $evancz$elm_playground$Playground$circle = F2(
 	function (color, radius) {
@@ -6764,34 +6813,11 @@ var $author$project$Main$ball = function (_v0) {
 		y,
 		A2($evancz$elm_playground$Playground$circle, color, size));
 };
-var $evancz$elm_playground$Playground$Group = function (a) {
-	return {$: 7, a: a};
-};
-var $evancz$elm_playground$Playground$group = function (shapes) {
-	return A6(
-		$evancz$elm_playground$Playground$Shape,
-		0,
-		0,
-		0,
-		1,
-		1,
-		$evancz$elm_playground$Playground$Group(shapes));
-};
 var $author$project$Main$balls = A2(
 	$elm$core$Basics$composeL,
 	$evancz$elm_playground$Playground$group,
 	$elm$core$List$map($author$project$Main$ball));
 var $evancz$elm_playground$Playground$black = $evancz$elm_playground$Playground$Hex('#000000');
-var $evancz$elm_playground$Playground$moveDown = F2(
-	function (dy, _v0) {
-		var x = _v0.a;
-		var y = _v0.b;
-		var a = _v0.c;
-		var s = _v0.d;
-		var o = _v0.e;
-		var f = _v0.f;
-		return A6($evancz$elm_playground$Playground$Shape, x, y - dy, a, s, o, f);
-	});
 var $evancz$elm_playground$Playground$moveLeft = F2(
 	function (dx, _v0) {
 		var x = _v0.a;
@@ -6801,21 +6827,6 @@ var $evancz$elm_playground$Playground$moveLeft = F2(
 		var o = _v0.e;
 		var f = _v0.f;
 		return A6($evancz$elm_playground$Playground$Shape, x - dx, y, a, s, o, f);
-	});
-var $evancz$elm_playground$Playground$Rectangle = F3(
-	function (a, b, c) {
-		return {$: 2, a: a, b: b, c: c};
-	});
-var $evancz$elm_playground$Playground$rectangle = F3(
-	function (color, width, height) {
-		return A6(
-			$evancz$elm_playground$Playground$Shape,
-			0,
-			0,
-			0,
-			1,
-			1,
-			A3($evancz$elm_playground$Playground$Rectangle, color, width, height));
 	});
 var $author$project$Main$headNeck = F3(
 	function (color, size, neckLength) {
@@ -6844,7 +6855,6 @@ var $evancz$elm_playground$Playground$moveY = F2(
 	});
 var $evancz$elm_playground$Playground$moveUp = $evancz$elm_playground$Playground$moveY;
 var $evancz$elm_playground$Playground$orange = $evancz$elm_playground$Playground$Hex('#f57900');
-var $evancz$elm_playground$Playground$white = $evancz$elm_playground$Playground$Hex('#FFFFFF');
 var $author$project$Main$face = $evancz$elm_playground$Playground$group(
 	_List_fromArray(
 		[
@@ -6915,6 +6925,7 @@ var $author$project$Main$view = F2(
 	function (computer, memory) {
 		return _List_fromArray(
 			[
+				$author$project$Main$background,
 				A3(
 				$evancz$elm_playground$Playground$move,
 				memory.C,
